@@ -1,8 +1,9 @@
-import React, { useContext, useMemo } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import { moviesContext } from "../Components/MoviesProvider";
+import { useNavigate } from "react-router-dom";
 
 const TotalMovies = () => {
-  const { movies, search, currentPage, setCurrentPage } =
+  const { movies, search, currentPage, setCurrentPage, type, setType } =
     useContext(moviesContext);
   console.log(movies);
   // find max length of data from api for pagination
@@ -28,17 +29,38 @@ const TotalMovies = () => {
   const lastPage = () => {
     setCurrentPage(maxPage);
   };
+  const handleChange = useCallback((e) => {
+    setType(e.target.value);
+  }, []);
   return (
     <div>
-      <div className="container mx-auto grid gap-3 w-auto h-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
+      {/* to filter movies or series */}
+      <div className="flex flex-col justify-center items-center">
+        <p className="text-2xl font-semibold">Your search is : <span className="text-red-600">{search}</span></p>
+        <select
+          name="type"
+          value={type}
+          onChange={handleChange}
+          className=" w-auto py-2 text-sm mt-2 hover:border-red-600"
+          required
+        >
+          <option value="">All</option>
+          <option value="movie">Movie</option>
+          <option value="series">series</option>
+        </select>
+      </div>
 
+      <div className="container mx-auto grid gap-3 w-auto h-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
         {/* mapping data from omdb api search parameter */}
         {movies.Search.map((item, index) => {
           return (
-            <div key={index} className="w-auto h-auto">
+            <div
+              key={index}
+              className="w-auto h-auto flex flex-col justify-center border mt-2 p-2 "
+            >
               <h1 className="text-xl font-bold ">{item.Title}</h1>
               <h3 className="text-md font-semibold">{item.Year}</h3>
-              <p className="text-md font-semibold">IMdb ID{item.imdbID}</p>
+              <p className="text-md font-semibold">IMdb ID : {item.imdbID}</p>
               <img className="w-60 h-60" src={item.Poster} alt={item.Title} />
             </div>
           );

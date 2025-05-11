@@ -6,16 +6,17 @@ export const moviesContext = createContext();
 const MoviesProvider = ({children}) => {
     const [search,setSearch] = useState("");
     const [movies,setMovies] = useState([]);
+    const [type,setType] = useState("")
     const [currentPage,setCurrentPage] = useState(1)
     console.log(search);
     
     useEffect(()=>{
         fetchData();
-    },[search,currentPage])
+    },[search,currentPage,type])
 
     const fetchData= async ()=>{
         try {
-            const response = await axios.get(`https://omdbapi.com/?apikey=d709826f&s=${search}&page=${currentPage}`)
+            const response = await axios.get(`https://omdbapi.com/?apikey=d709826f&s=${search}&Type=${type}&page=${currentPage}`)
             setMovies(response.data)
             
         } 
@@ -29,7 +30,7 @@ const MoviesProvider = ({children}) => {
     
     return (
         <div>
-            <moviesContext.Provider value={{movies,setMovies,search,setSearch,currentPage,setCurrentPage}}>
+            <moviesContext.Provider value={{movies,setMovies,search,setSearch,currentPage,setCurrentPage,type,setType}}>
                 {children}
             </moviesContext.Provider>
         </div>
