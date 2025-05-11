@@ -57,17 +57,6 @@ const Search = () => {
               placeholder="Enter Movie title"
               required
             />
-            {/* <select
-              name="type"
-              value={formData.type}
-              onChange={handleChange}
-              className="absolute  w-auto py-2 text-sm mt-2 hover:border-red-600"
-              required
-            >
-              <option value="all">All</option>
-              <option value="movie">Movie</option>
-              <option value="series">series</option>
-            </select> */}
             <button
               type="submit"
               className="text-white absolute end-2.5 bottom-2.5 bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-500 font-medium rounded-lg text-sm px-4 py-2 "

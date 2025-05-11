@@ -1,10 +1,20 @@
-import React, { useCallback, useContext, useMemo } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { moviesContext } from "../Components/MoviesProvider";
 import { Link, useNavigate } from "react-router-dom";
 
 const TotalMovies = () => {
-  const { movies, search, currentPage, setCurrentPage, type, setType,setDetail } =
-    useContext(moviesContext);
+  const {
+    movies,
+    search,
+    currentPage,
+    setCurrentPage,
+    type,
+    setType,
+    setDetail,
+    status,
+    setStatus
+  } = useContext(moviesContext);
+
   console.log(movies);
   // find max length of data from api for pagination
   const maxPage = Math.ceil(parseInt(movies.totalResults) / 10);
@@ -34,16 +44,19 @@ const TotalMovies = () => {
   }, []);
 
   const navigate = useNavigate();
-  const handleDetails =(item) =>{
-
-    setDetail(item.imdbID)
-    navigate ( `/movies/${item.imdbID}`)
-  }
+  const handleDetails = (item) => {
+    setDetail(item.imdbID);
+    setStatus(true)
+    navigate(`/movies/${item.imdbID}`);
+  };
+ 
   return (
     <div>
       {/* to filter movies or series */}
       <div className="flex flex-col justify-center items-center">
-        <p className="text-2xl font-semibold">Your search is : <span className="text-red-600">{search}</span></p>
+        <p className="text-2xl font-semibold">
+          Your search is : <span className="text-red-600">{search}</span>
+        </p>
         <select
           name="type"
           value={type}
@@ -68,7 +81,16 @@ const TotalMovies = () => {
               <h1 className="text-xl font-bold text-red-500">{item.Title}</h1>
               <h3 className="text-md font-semibold">{item.Year}</h3>
               <p className="text-md font-semibold">IMdb ID : {item.imdbID}</p>
-              <button className="flex text-md text-blue-600 border border-gray-300 w-fit px-2 my-2" onClick={()=>{handleDetails(item)}}>more info</button>
+              <div className="flex justify-between">
+                <button
+                  className="flex text-md text-blue-600 border border-gray-300 w-fit px-2 my-2"
+                  onClick={() => {
+                    handleDetails(item);
+                  }}
+                >
+                  more info
+                </button>
+              </div>
               <img className="w-60 h-60" src={item.Poster} alt={item.Title} />
             </div>
           );

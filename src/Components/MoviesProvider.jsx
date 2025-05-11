@@ -10,8 +10,12 @@ const MoviesProvider = ({children}) => {
     const [info,setInfo] =useState({});//to store selected movie details
     const [type,setType] = useState("");// to filter type(movies,series)
     const [currentPage,setCurrentPage] = useState(1) //for pagination
-    
+    const [status,setStatus] = useState(true)//for add favroite list
+    const [count,setCount] = useState(0)
+    const [favorites,setFavorites] = useState([])
+
     console.log(search);
+    console.log(favorites);
     
     useEffect(()=>{
         fetchData();
@@ -22,13 +26,11 @@ const MoviesProvider = ({children}) => {
             const response = await axios.get(`https://omdbapi.com/?apikey=d709826f&s=${search}&Type=${type}&page=${currentPage}`)
             const moreInfo = await axios.get(`https://omdbapi.com/?apikey=d709826f&i=${detail}`)
             setMovies(response.data)//for search method
-            setInfo(moreInfo.data)//to show more detail about you select from search results
+            setInfo([moreInfo.data])//to show more detail about you select from search results
             
         } 
         catch (error) {
-            console.log(error);
-
-            
+            console.log(error);  
         }
     }
 
@@ -36,7 +38,7 @@ const MoviesProvider = ({children}) => {
     
     return (
         <div>
-            <moviesContext.Provider value={{movies,setMovies,search,setSearch,currentPage,setCurrentPage,type,setType,setDetail,detail,info,setInfo}}>
+            <moviesContext.Provider value={{movies,setMovies,search,setSearch,currentPage,setCurrentPage,type,setType,setDetail,detail,info,setInfo,status,setStatus,count,setCount,favorites,setFavorites ,}}>
                 {children}
             </moviesContext.Provider>
         </div>

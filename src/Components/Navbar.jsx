@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { moviesContext } from "./MoviesProvider";
 
 const Navbar = () => {
+  const {count,setCount} = useContext(moviesContext);
+
   return (
     <div>
       <nav className="bg-black/80">
@@ -25,7 +28,7 @@ const Navbar = () => {
                   to="/favorites"
                   className="block py-2 px-3 text-red-600   md:p-0 "
                 >
-                  ❤ Lists
+                  <span className="bg-white text-black text-sm rounded-lg px-2 mb-2">{count}</span>❤ Lists
                 </Link>
               </li>
             </ul>

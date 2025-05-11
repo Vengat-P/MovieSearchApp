@@ -6,7 +6,7 @@ import Search from './Pages/Search';
 import TotalMovies from './Pages/TotalMovies';
 import Movie from './Pages/Movie';
 import PageNotFound from './Pages/PageNotFound';
-
+import Favorites from './Pages/Favorites';
 const App = () => {
   return (
     <div>
@@ -18,6 +18,7 @@ const App = () => {
         <Route path='/' element={<Search/>}/>
         <Route path='/movies' element={<TotalMovies/>}/>
         <Route path='/movies/:id' element={<Movie/>}/>
+        <Route path='/favorites' element={<Favorites/>}/>
         <Route path='*' element={<PageNotFound/>}/>
       </Routes>
       <div>
