@@ -1,9 +1,9 @@
 import React, { useCallback, useContext, useMemo } from "react";
 import { moviesContext } from "../Components/MoviesProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const TotalMovies = () => {
-  const { movies, search, currentPage, setCurrentPage, type, setType } =
+  const { movies, search, currentPage, setCurrentPage, type, setType,setDetail } =
     useContext(moviesContext);
   console.log(movies);
   // find max length of data from api for pagination
@@ -32,6 +32,13 @@ const TotalMovies = () => {
   const handleChange = useCallback((e) => {
     setType(e.target.value);
   }, []);
+
+  const navigate = useNavigate();
+  const handleDetails =(item) =>{
+
+    setDetail(item.imdbID)
+    navigate ( `/movies/${item.imdbID}`)
+  }
   return (
     <div>
       {/* to filter movies or series */}
@@ -58,9 +65,10 @@ const TotalMovies = () => {
               key={index}
               className="w-auto h-auto flex flex-col justify-center border mt-2 p-2 "
             >
-              <h1 className="text-xl font-bold ">{item.Title}</h1>
+              <h1 className="text-xl font-bold text-red-500">{item.Title}</h1>
               <h3 className="text-md font-semibold">{item.Year}</h3>
               <p className="text-md font-semibold">IMdb ID : {item.imdbID}</p>
+              <button className="flex text-md text-blue-600 border border-gray-300 w-fit px-2 my-2" onClick={()=>{handleDetails(item)}}>more info</button>
               <img className="w-60 h-60" src={item.Poster} alt={item.Title} />
             </div>
           );
