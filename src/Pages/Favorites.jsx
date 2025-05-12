@@ -51,7 +51,7 @@ const favoritesLists = () => {
               <img className="w-60 h-60" src={item.Poster} alt={item.Title} />
                 </div>
                 <div className='flex-col justify-center items-center'>
-                    <button className='p-1 border ' onClick={removeFromList}>Remove</button>
+                    <button className='p-1 border ' onClick={()=>{removeFromList(item)}}>Remove</button>
                 </div>
               
             </div>
