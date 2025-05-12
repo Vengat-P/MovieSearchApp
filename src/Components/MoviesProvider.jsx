@@ -6,7 +6,9 @@ export const moviesContext = createContext();
 const MoviesProvider = ({children}) => {
     const [search,setSearch] = useState("");//search data stored here
     const [detail,setDetail] = useState("");//for detailed information
-    const [movies,setMovies] = useState([]);//search results 
+    const [movies,setMovies] = useState([]);//search results
+    const [loading,setLoading] = useState(true);
+    const [error,setError] = useState(null);
     const [info,setInfo] =useState({});//to store selected movie details
     const [type,setType] = useState("");// to filter type(movies,series)
     const [currentPage,setCurrentPage] = useState(1) //for pagination
@@ -15,7 +17,7 @@ const MoviesProvider = ({children}) => {
     const [favorites,setFavorites] = useState([])
 
     console.log(search);
-    console.log(favorites);
+    // console.log(favorites);
     
     useEffect(()=>{
         fetchData();
@@ -27,11 +29,19 @@ const MoviesProvider = ({children}) => {
             const moreInfo = await axios.get(`https://omdbapi.com/?apikey=d709826f&i=${detail}`)
             setMovies(response.data)//for search method
             setInfo([moreInfo.data])//to show more detail about you select from search results
+            setLoading(false)
             
         } 
-        catch (error) {
-            console.log(error);  
+        catch (err) {
+            console.log(err); 
+            setError(err)
         }
+    }
+    if(loading){
+        return <div>...Loading</div>
+    }
+    if(error){
+        return <div>{error}</div>
     }
 
     

@@ -3,22 +3,20 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { moviesContext } from "../Components/MoviesProvider";
 
 const Search = () => {
+  const { movies, setMovies, setSearch, search, type, setType } =
+    useContext(moviesContext);
 
-    const {movies,setMovies,setSearch,search,type,setType} = useContext(moviesContext)
+  // console.log(formData);
 
-    // console.log(formData);
-    
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(formData);
-    navigate("/movies")
+    navigate("/movies");
   };
-  const handleChange = useCallback( (e) => {
-
-    setSearch(e.target.value)
-
-  },[])
+  const handleChange = useCallback((e) => {
+    setSearch(e.target.value);
+  }, []);
   return (
     <div>
       <div className="w-max sm:h-40 md:h-96 mx-auto mt-12 mb-12 flex flex-col justify-center items-center">

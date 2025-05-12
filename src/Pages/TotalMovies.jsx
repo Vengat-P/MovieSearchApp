@@ -12,7 +12,8 @@ const TotalMovies = () => {
     setType,
     setDetail,
     status,
-    setStatus
+    setStatus,
+    favorites,
   } = useContext(moviesContext);
 
   console.log(movies);
@@ -46,10 +47,16 @@ const TotalMovies = () => {
   const navigate = useNavigate();
   const handleDetails = (item) => {
     setDetail(item.imdbID);
-    setStatus(true)
+    const existingFav = favorites.find((ele) => ele.imdbID === item.imdbID);
+    if (existingFav) {
+      setStatus(false);
+    } else {
+      setStatus(true);
+    }
+
     navigate(`/movies/${item.imdbID}`);
   };
- 
+
   return (
     <div>
       {/* to filter movies or series */}
