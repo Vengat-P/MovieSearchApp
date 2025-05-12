@@ -26,7 +26,7 @@ Develop a full-featured movie search application using React that integrates wit
 - **Step1** Create react application basics setup and cleanup folder.
   **Commands**:
 - **TailwindCss** in command prompt - npm install tailwindcss @tailwindcss/vite, In vite.config file - import tailwindcss from '@tailwindcss/vite' add plugin- tailwindcss(), In Index.css - @import "tailwindcss";
-- **Flowbite** in command prompt - npm install flowbite , In Index.css add - @plugin "flowbite/plugin" @source "../node_modules/flowbite",In Index.html add - <!-- <script src="./node_modules/flowbite/dist/flowbite.min.js"></script> -->
+- **Flowbite** in command prompt - npm install flowbite , In Index.css add - @plugin "flowbite/plugin" @source "../node_modules/flowbite",In Index.html add -  script "./node_modules/flowbite/dist/flowbite.min.js"
 - **axios** in command prompt - npm i axios
 - **Router** in command prompt - npm i react-router-dom
 
